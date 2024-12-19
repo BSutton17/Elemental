@@ -9,23 +9,23 @@ export const useGameContext = () => {
 
 export const GameProvider = ({ children }) => {
   // Elements Health
-  const [waterHealth, setWaterHealth] = useState(elements.Water.Health);
-  const [fireHealth, setFireHealth] = useState(elements.Fire.Health);
-  const [airHealth, setAirHealth] = useState(elements.Air.Health);
-  const [earthHealth, setEarthHealth] = useState(elements.Earth.Health);
-  const [electricityHealth, setElectricityHealth] = useState(elements.Electricity.Health);
-  const [iceHealth, setIceHealth] = useState(elements.Ice.Health);
-  const [natureHealth, setNatureHealth] = useState(elements.Nature.Health);
+  const [water, setWater] = useState(elements['Water']);
+  const [fire, setFire] = useState(elements['Fire']);
+  const [air, setAir] = useState(elements['Air']);
+  const [earth, setEarth] = useState(elements['Earth']);
+  const [electricity, setElectricity] = useState(elements['Electricity']);
+  const [ice, setIce] = useState(elements['Ice']);
+  const [nature, setNature] = useState(elements['Nature']);
+  //passes the enemy object in one location
+  const [enemyElem, setEnemyElem] = useState()
 
-  // Elements Defese
-  const [waterDefense, setWaterDefense] = useState(elements.Water.Defense);
-  const [fireDefense, setFireDefense] = useState(elements.Fire.Defense);
-  const [airDefense, setAirDefense] = useState(elements.Air.Defense);
-  const [earthDefense, setEarthDefense] = useState(elements.Earth.Defense);
-  const [electricityDefense, setElectricityDefense] = useState(elements.Electricity.Defense);
-  const [iceDefense, setIceDefense] = useState(elements.Ice.Defense);
-  const [natureDefense, setNatureDefense] = useState(elements.Nature.Defense);
+  //enemy border
+  const [clickedEnemy, setClickedEnemy] = useState(); 
 
+  //Air's ult and passives
+  const [birdsEye, setBirdsEye] = useState(false)
+  const [isAir, setIsAir] = useState(false)
+  const [selectedEnemies, setSelectedEnemies] = useState([]);
   //tech stuff
   const [clicked, setClicked] = useState(); 
   const [targetHealth, setTargetHealth] = useState()
@@ -34,38 +34,21 @@ export const GameProvider = ({ children }) => {
   return (
     <GameContext.Provider
       value={{
-        // Health States
-        waterHealth,
-        setWaterHealth,
-        fireHealth,
-        setFireHealth,
-        airHealth,
-        setAirHealth,
-        earthHealth,
-        setEarthHealth,
-        electricityHealth,
-        setElectricityHealth,
-        iceHealth,
-        setIceHealth,
-        natureHealth,
-        setNatureHealth,
+        //elements
+        water, setWater,
+        fire, setFire,
+        air, setAir,
+        earth, setEarth,
+        electricity, setElectricity,
+        ice, setIce,
+        nature, setNature,
 
-        //defense
-        waterDefense, 
-        setWaterDefense,
-        fireDefense, 
-        setFireDefense,
-        airDefense, 
-        setAirDefense,
-        earthDefense, 
-        setEarthDefense,
-        electricityDefense, 
-        setElectricityDefense,
-        iceDefense, 
-        setIceDefense,
-        natureDefense, 
-        setNatureDefense,
-
+        //misc stuff
+        enemyElem, setEnemyElem,
+        clickedEnemy, setClickedEnemy,
+        birdsEye, setBirdsEye,
+        isAir, setIsAir,
+        selectedEnemies, setSelectedEnemies,
         //tech stuff
         clicked,
         setClicked,

@@ -14,6 +14,9 @@
     border: 1px solid red;
   }
 
+  .blue-border{
+    border: 1px solid blue;
+  }
   .enemies {
     display: flex; 
     
@@ -23,6 +26,16 @@
     cursor: pointer;
   }
   
+  .birds{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  h4{
+    margin-bottom: -3vh;
+  }
   
   /* Inventory */
   .inventory-bar {
@@ -78,4 +91,53 @@
     margin-top: 5px; 
   }
   
+  /* Health Bar */
+  .personal-bar, .birds-eye-view{
+    width: 15vw;
+    height: 20px;
+    border: 1px solid #000;
+    background-color: #ccc;
+  }
+
+  .birds-eye-view{
+    width: 15vh !important;
+  }
+
+  .personal-bar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 4vh;
+    margin-left: 2vh;
+  }
+
+  .birds-eye-view{
+    position: relative;
+  }
+
+  .player-health{
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 0vh;
+    margin-left: 2vh;
+  }
   
+  .health-bar-fill {
+    height: 100%;
+    background-color: green;
+  }
+
+  .health-bar-critical{
+    height: 100%;
+    background-color: rgb(235, 220, 1);
+  }
+  
+  .health-bar-danger{
+    height: 100%;
+    background-color: rgb(190, 12, 6);
+  }
+
+  .birds-eye-view{
+    position: relative !important;
+  }

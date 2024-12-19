@@ -1,47 +1,84 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './game.css';
 import { useGameContext } from '../Store/GameContext'; // Import the custom context
+import HealthBar from './HealthBar';
 
 function GameScreen() {
-  const [clickedEnemy, setClickedEnemy] = useState(); // Track the clicked enemy
   const { 
-    fireHealth, airHealth, waterHealth, electricityHealth, earthHealth, iceHealth, natureHealth, 
-    fireDefense, airDefense, waterDefense, electricityDefense, earthDefense, iceDefense, natureDefense, 
-    clicked, setClicked, targetHealth, setTargetHealth, setTargetDefense,
-    setFireHealth, setAirHealth, setWaterHealth, setElectricityHealth, setEarthHealth, setIceHealth, setNatureHealth 
+        water, setWater,
+        fire, setFire,
+        air, setAir,
+        earth, setEarth,
+        electricity, setElectricity,
+        ice, setIce,
+        nature, setNature,
+        targetHealth, setTargetHealth, 
+        setEnemyElem, enemyElem,
+        clickedEnemy, setClickedEnemy,
+        birdsEye,
+        isAir, setIsAir,
+        selectedEnemies, setSelectedEnemies,
   } = useGameContext();
 
-  // Handle clicking on the enemy element and store its health in clicked state
-  const handleClick = (health, setter, defense, enemy) => {
-    setClicked(health);
-    setTargetHealth(() => setter);
-    setTargetDefense(() => defense)
-    setClickedEnemy(enemy); 
-    console.log(clickedEnemy)
+  // Handle clicking on the enemy element and toggle it in the selection
+  const multiClick = (enemy, setter) => {
+    setSelectedEnemies((prev) => {
+      if (prev.find((e) => e.enemy === enemy)) {
+        // If enemy is already selected, remove it
+        return prev.filter((e) => e.enemy !== enemy);
+      } else {
+        // Otherwise, add it
+        return [...prev, { enemy, setter }];
+      }
+    });
   };
+
+  // Handle clicking on the enemy element and store its health in clicked state
+  const handleClick = (elem, setter, enemy) => {
+    if(isAir){
+      multiClick(elem, setter)
+    }
+    else{
+      setEnemyElem(elem); 
+      setTargetHealth(() => setter); 
+      setClickedEnemy(enemy); 
+    }
+    
+  };
+
 
   return (
     <>
       <div className='enemies'>
-        <div
-          className={clickedEnemy === 'fire' ? 'red-border enemy' : 'enemy'}
-          onClick={() => handleClick(fireHealth, setFireHealth, fireDefense, 'fire')}
-        >
-          Fire Health: {fireHealth}
+        <div className='birds'>
+          <div
+            className={isAir ? selectedEnemies.find((e) => e.enemy === nature) ? 'blue-border enemy' : 'enemy' : clickedEnemy === 'nature' ? 'red-border enemy' : 'enemy'} 
+            onClick={() => handleClick(nature, setNature, "nature")}
+          >
+            <h3>Nature Health: {nature.Health}</h3>
+          </div>
+          {birdsEye && (
+            <div className='birds-eye-view'>
+              <HealthBar currentHealth={100} maxHealth={1000} classNameSet={"birds-eye-view"} />
+              <h4>Citizens: {nature.Citizens}</h4>
+              <h4>Mana:</h4>
+            </div>
+          )}
         </div>
-
-        <div
-          className={clickedEnemy === 'air' ? 'red-border enemy' : 'enemy'} 
-          onClick={() => handleClick(airHealth, setAirHealth, airDefense, 'air')}
-        >
-          Air Health: {airHealth}
-        </div>
-
-        <div
-          className={clickedEnemy === 'water' ? 'red-border enemy' : 'enemy'}
-          onClick={() => handleClick(waterHealth, setWaterHealth, waterDefense, 'water')}
-        >
-          Water Health: {waterHealth}
+        <div className='birds'>
+          <div
+            className={isAir ? selectedEnemies.find((e) => e.enemy === electricity) ? 'blue-border enemy' : 'enemy' :clickedEnemy === 'electricity' ? 'red-border enemy' : 'enemy'}
+            onClick={() => handleClick(electricity, setElectricity, "electricity")}
+          >
+            <h3>Electricity Health: {electricity.Health}</h3>
+          </div>
+          {birdsEye && (
+            <div className='birds-eye-view'>
+              <HealthBar currentHealth={100} maxHealth={1000} classNameSet={"birds-eye-view"} />
+              <h4>Citizens: {electricity.Citizens}</h4>
+              <h4>Mana:</h4>
+            </div>
+          )}
         </div>
       </div>
     </>

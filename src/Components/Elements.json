@@ -4,7 +4,8 @@
         "KeyPoints": {
             "description": "Water is the element of self preservation, they focus less on offense and more on staying alive and keeping attackers off their backs"
         },
-        "Citizens": 10,
+        "Shield-hp": 0,
+        "Citizens": 20,
         "Defense": 1,
         "Passives": [
             {
@@ -17,39 +18,44 @@
             }
         ],
         "Attacks": {
-            "crit-rate": 10,
-            "crit-dmg": 50,
+            "crit_rate": 10,
+            "crit_dmg": 1.5,
             "Primary": {    
                 "name": "Water ball",
                 "type": "Basic attack",
                 "dmg": 90,
-                "cost": 100 
+                "cost": 100,
+                "CD": 6 
             },
             "Secondary": {
                 "name": "Water Fall",
                 "type": "Powerful water attack",
                 "dmg": 200,
-                "cost": 300 
+                "cost": 300,
+                "CD": 9 
             },
             "Special": {
                 "name": "Flood",
                 "type": "Submerge target in a flood dealing heavy damage, preventing them from attacking water for 5 seconds",
                 "dmg": 350,
-                "cost": 500 
+                "cost": 500,
+                "CD": 13 
             }
         },
         "Utility": {
             "name": "Fluid assimilation",
-            "effect": "Instantly regen 20% of your health",
+            "effect": "Instantly regen 15% of your health",
             "cost": 450,
-            "dmg": 0
+            "dmg": 0,
+            "CD": 10
             
         },
         "Ultimate": {
             "name": "Riptide",
             "effect": "Regenerate 50% health of your castle as well as gain +20% Citizens in your kingdom",
             "cost": 1000,
-            "dmg": 0 
+            "dmg": 0,
+            "CD": 30 
         }
     },
     "Fire": {
@@ -57,6 +63,7 @@
         "KeyPoints": {
             "description": "Fire is the most aggressive and offensive element, defense is secondary to them and they focus on taking down opponents as quickly as possible"
         },
+        "Shield-hp": 0,
         "Citizens": 10,
         "Defense": 1,
         "Passives": [
@@ -70,38 +77,43 @@
             }
         ],
         "Attacks": {
-            "crit-rate": 10,
-            "crit-dmg": 50,
+            "crit_rate": 10,
+            "crit_dmg": 1.5,
             "Primary": {    
                 "name": "Fireball",
                 "type": "Basic fire attack",
-                "dmg": 100,
-                "cost": 100 
+                "dmg": 110,
+                "cost": 100,
+                "CD": 6 
             },
             "Secondary": {
                 "name": "Scorching Sun",
                 "type": "Powerful fire attack",
-                "dmg": 250,
-                "cost": 300 
+                "dmg": 275,
+                "cost": 300,
+                "CD": 9 
             },
             "Special": {
                 "name": "Firenado",
                 "type": "A very powerful fire attack that can leave burns on your opponent for a few seconds. Attacking opponents with burns causes them to receive extra damage. Water cannot be burned. Ice burns for longer.",
-                "dmg": 400,
-                "cost": 500 
+                "dmg": 500,
+                "cost": 500,
+                "CD": 13 
             }
         },
         "Utility": {
             "name": "Heat wave",
             "effect": "Increase crit rate by 5% and crit damage by 10% For 10 seconds",
             "cost": 450,
-            "dmg": 0
+            "dmg": 0,
+            "CD": 10
         },
         "Ultimate": {
             "name": "Blazing Determination",
             "effect": "Next attack deals 2.5x damage",
             "cost": 1000,
-            "dmg": 0 
+            "dmg": 0,
+            "CD": 30 
         }
     },
     "Air": {
@@ -109,6 +121,7 @@
         "KeyPoints": {
             "description": "Air is an element of crowd control. They focus on keeping every element on the board in an uncomfortable position at the same time they are the only element that can attack multiple elements and apply pressure consistently. Long game is their friend"
         },
+        "Shield-hp": 0,
         "Citizens": 10,
         "Defense": 1,
         "Passives": [
@@ -122,38 +135,43 @@
             }
         ],
         "Attacks": {
-            "crit-rate": 10,
-            "crit-dmg": 50,
+            "crit_rate": 10,
+            "crit_dmg": 1.5,
             "Primary": {    
                 "name": "A Light Breeze",
                 "type": "Basic Air attack",
                 "dmg": 80,
-                "cost": 100 
+                "cost": 100,
+                "CD": 6 
             },
             "Secondary": {
                 "name": "Hurricane",
                 "type": "A more powerful Air attack",
                 "dmg": 180,
-                "cost": 300 
+                "cost": 300,
+                "CD": 9 
             },
             "Special": {
                 "name": "Thick Fog",
                 "type": "Deals moderate damage while also obstructing the targets vision making it difficult for them to see their inventory for a few seconds",
                 "dmg": 250,
-                "cost": 500
+                "cost": 500,
+                "CD": 13
             }
         },
         "Utility": {
             "name": "Birds Eye View",
             "effect": "Temporarily displays every kingdoms shield health, citizen count and revenue",
             "cost": 450,
-            "dmg": 0
+            "dmg": 0,
+            "CD": 10
         },
         "Ultimate": {
             "name": "Dust Bunnies",
             "effect": "Send small dust bunnies to every kingdom to slowly chip away damage",
             "cost": 1000,
-            "dmg": 0 
+            "dmg": 0,
+            "CD": 30 
         }
     },
     "Earth": {
@@ -175,32 +193,36 @@
             }
         ],
         "Attacks": {
-            "crit-rate": 10,
-            "crit-dmg": 50,
+            "crit_rate": 10,
+            "crit_dmg": 1.5,
             "Primary": {    
                 "name": "Rock Throw",
                 "type": "Basic Earth attack",
                 "dmg": 75,
-                "cost": 100 
+                "cost": 100,
+                "CD": 6 
             },
             "Secondary": {
                 "name": "Meteor Shower",
                 "type": "A powerful earth attack",
                 "dmg": 250,
-                "cost": 300 
+                "cost": 300,
+                "CD": 9 
             },
             "Special": {
                 "name": "Earthquake",
                 "type": "A very powerful attack that’s aftershock damages the kingdom adjacent to the target",
                 "dmg": 350,
-                "cost": 500 
+                "cost": 500,
+                "CD": 13 
             }
         },
         "Utility": {
             "name": "Natural terrain",
             "effect": "All incoming damage is reduced by 20%",
             "cost": 450,
-            "dmg": 0
+            "dmg": 0,
+            "CD": 10
         },
         "Ultimate": {
             "name": "Brick Wall",
@@ -227,32 +249,36 @@
             }
         ],
         "Attacks": {
-            "crit-rate": 10,
-            "crit-dmg": 50,
+            "crit_rate": 10,
+            "crit_dmg": 1.5,
             "Primary": {    
                 "name": "Zap",
                 "type": "Basic Electricity attack",
                 "dmg": 80,
-                "cost": 100 
+                "cost": 100,
+                "CD": 6 
             },
             "Secondary": {
                 "name": "Lightning barrage",
                 "type": "A powerful electricity attack",
                 "dmg": 200,
-                "cost": 300 
+                "cost": 300,
+                "CD": 9 
             },
             "Special": {
                 "name": "Hack",
                 "type": "Deal low damage while also stealing a small percentage of another kingdoms money and Citizens",
                 "dmg": 150,
-                "cost": 500 
+                "cost": 500,
+                "CD": 13 
             }
         },
         "Utility": {
             "name": "Thunderdome",
             "effect": "Create a mild shield",
             "cost": 450,
-            "dmg": 0
+            "dmg": 0,
+            "CD": 10
         },
         "Ultimate": {
             "name": "Thundering Fate",
@@ -279,38 +305,43 @@
             }
         ],
         "Attacks": {
-            "crit-rate": 10,
-            "crit-dmg": 50,
+            "crit_rate": 10,
+            "crit_dmg": 1.5,
             "Primary": {    
                 "name": "Frostbite",
                 "type": "Basic ice attack",
                 "dmg": 80,
-                "cost": 100 
+                "cost": 100,
+                "CD": 6 
             },
             "Secondary": {
                 "name": "Blizzard",
                 "type": "Powerful ice attack that deals damage and slows down enemies",
                 "dmg": 180,
-                "cost": 300 
+                "cost": 300,
+                "CD": 9 
             },
             "Special": {
                 "name": "Ice Spear",
                 "type": "Throw a spear of ice at the enemy, causing a freezing effect and reducing their speed for 5 seconds",
                 "dmg": 220,
-                "cost": 500 
+                "cost": 500,
+                "CD": 13 
             }
         },
         "Utility": {
             "name": "Frost Armor",
             "effect": "Increase defense by 20% for 10 seconds when hit by an attack.",
             "cost": 450,
-            "dmg": 0
+            "dmg": 0,
+            "CD": 10
         },
         "Ultimate": {
             "name": "Glacial Tomb",
             "effect": "Freeze all enemies in the area for 5 seconds and deal 300 damage.",
             "cost": 1000,
-            "dmg": 0 
+            "dmg": 0,
+            "CD": 30 
         }
     },
     "Nature": {
@@ -318,6 +349,7 @@
         "KeyPoints": {
                 "description": "Nature is the element of adaptability and toxins, focusing on environmental manipulation, poison, and creating adverse conditions for opponents."
             },
+            "Shield-hp": 0,
             "Citizens": 15,
             "Defense": 1,
             "Passives": [
@@ -331,26 +363,29 @@
                 }
             ],
             "Attacks": {
-                "crit-rate": 10,
-                "crit-dmg": 50,
+                "crit_rate": 10,
+                "crit_dmg": 1.5,
                 "Primary": {
                     "name": "Sludge",
                     "type": "Basic poison attack",
                     "dmg": 50,
-                    "cost": 100 
+                    "cost": 100,
+                    "CD": 6 
                 },
                 "Secondary": {
                     "name": "Acid Rain",
                     "type": "Powerful acid attack that deals damage over time",
                     "poison-dmg": 20,
-                    "cost": 300 
+                    "cost": 300,
+                    "CD": 9 
                 },
                 "Special": {
                     "name": "Gastro Acid",
                     "type": "Attack that poisons enemies and reduces their defense for 5 seconds",
                     "dmg": 200,
                     "poison-dmg": 15,
-                    "cost": 500 
+                    "cost": 500,
+                    "CD": 13 
                 }
             },
             "Utility": {
@@ -364,6 +399,7 @@
                 "effect": "Release a cloud of toxic gas that poisons all enemies in the area and deals 300 damage over 5 seconds.",
                 "cost": 1000,
                 "dmg": 0,
+                "CD": 30,
                 "poison-dmg": 20
             }
         }

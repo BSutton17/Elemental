@@ -3,7 +3,7 @@ import './App.css'
 import { useGameContext } from './Store/GameContext';
 import Inventory from './Components/Inventory';
 import GameScreen from './Components/GameScreen';
-import elements from './Components/Elements.json'; // import the elements data
+import elements from './Components/Elements.json';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <GameScreen />
-      <Inventory Element={nature} />
+      <Inventory Element={air} />
     </>
   )
 }
