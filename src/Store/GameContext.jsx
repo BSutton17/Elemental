@@ -30,6 +30,7 @@ export const GameProvider = ({ children }) => {
   const [clicked, setClicked] = useState(); 
   const [targetHealth, setTargetHealth] = useState()
   const [targetDefense, setTargetDefense] = useState()
+  const [targetShield, setTargetShield] = useState()
 
   return (
     <GameContext.Provider
@@ -49,6 +50,7 @@ export const GameProvider = ({ children }) => {
         birdsEye, setBirdsEye,
         isAir, setIsAir,
         selectedEnemies, setSelectedEnemies,
+        targetShield, setTargetShield,
         //tech stuff
         clicked,
         setClicked,

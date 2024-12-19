@@ -17,6 +17,10 @@
   .blue-border{
     border: 1px solid blue;
   }
+
+  .shield{
+    border: 12px solid rgb(137, 87, 1) !important;
+  }
   .enemies {
     display: flex; 
     

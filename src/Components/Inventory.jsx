@@ -10,6 +10,7 @@ function Inventory({ Element }) {
   const [citizenPrice, setCitizenPrice] = useState(100)
   const [currentHealth, setCurrentHealth] = useState(Element.Health)
   const [isCooldownActive, setIsCooldownActive] = useState(false);
+  const [defense, setDefense] = useState(Element.Defense)
   const [critRate, setCritRate]= useState(Element.Attacks.crit_rate)
   const [critDmg, setCritDmg]= useState(Element.Attacks.crit_dmg)
 
@@ -19,10 +20,12 @@ function Inventory({ Element }) {
   const [utilityCooldown, setUtilityCooldown] = useState(0); 
   const [ultimateCooldown, setUltimateCooldown] = useState(0); 
 
+  const [electricityUltActive, setElectricityUltActive] = useState(false)
+
   const [toggleUlt, setToggleUlt] = useState(false)
 
   const [shieldHp, setShieldHp] = useState(Element["Shield-hp"])
-  const { targetHealth, enemyElem, setClickedEnemy, setEnemyElem, setBirdsEye, isAir, setIsAir, selectedEnemies, setSelectedEnemies,} = useGameContext(); 
+  const { targetHealth, enemyElem, setClickedEnemy, setEnemyElem, setBirdsEye, isAir, setIsAir, selectedEnemies, setSelectedEnemies, targetShield, setTargetShield} = useGameContext(); 
 
   //elements for var
   const water = elements['Water']; 
@@ -86,13 +89,16 @@ function Inventory({ Element }) {
             },[5000])
             break;
         case earth:
-            
+            setDefense(0.8)
+            setTimeout(()=>{
+              setDefense(1)
+            },[8000])
             break;
         case ice:
             
             break;
         case electricity:
-            
+            setShieldHp(150)
             break;
         case nature:
             
@@ -123,13 +129,16 @@ function Inventory({ Element }) {
             
             break;
         case earth:
-            
+          setShieldHp(1000)
             break;
         case ice:
             
             break;
         case electricity:
-            
+          setElectricityUltActive(true)
+          setTimeout(()=>{
+            setElectricityUltActive(false)
+          },[6000])
             break;
         case nature:
             
@@ -142,7 +151,6 @@ function Inventory({ Element }) {
 
   // Initialize citizens based on the Element prop
   useEffect(() => {
-    console.log(Element);
     if (Element && Element.Citizens) {
       setCitizens(Element.Citizens);
     }
@@ -150,10 +158,12 @@ function Inventory({ Element }) {
     if(Element == elements['Nature']){
         setCitizenPrice(150)
     }
-
+    // for Air's abilities
     if(Element == air){
       setIsAir(true)
     }
+
+
   }, [Element]);
 
   // Generate mana based on the number of citizens every second
@@ -167,12 +177,12 @@ function Inventory({ Element }) {
         setMana(prev => Math.floor(prev + citizens * 1.1));
       }
     }, 1000);
-      
 
       return () => clearInterval(interval); 
     
   }, [citizens]); 
 
+  // Auto regen health when damaged
   useEffect(()=>{
     if(currentHealth < Element.Health){
       const regen = setInterval(() => {
@@ -207,62 +217,99 @@ function Inventory({ Element }) {
       return;
     }
   
-    if (isAir && selectedEnemies.length > 0) {
-      // Attack all selected enemies if isAir is true
+    const handleMultiTargetAttack = () => {
       selectedEnemies.forEach(({ enemy, setter }) => {
         const random = Math.floor(Math.random() * 100) + 1;
-        let updatedHealth;
+        const adjustedDamage = damage / selectedEnemies.length;
+        const critMultiplier = random <= critRate ? critDmg : 1;
+        const totalDamage = adjustedDamage * critMultiplier * enemy.Defense;
   
-        if (random <= critRate) {
-          updatedHealth = Math.floor(
-            (enemy.Health - ((damage * critDmg / selectedEnemies.length) * enemy.Defense))
-          );
+        let remainingDamage = totalDamage;
+        let updatedShield = targetShield - totalDamage;
+  
+        if (updatedShield < 0) {
+          remainingDamage = Math.abs(updatedShield);
+          setTargetShield(0);
+          updatedShield = 0;
         } else {
-          updatedHealth = Math.floor(
-            (enemy.Health - (damage / selectedEnemies.length * enemy.Defense)) 
-          );
+          setTargetShield((prev) => prev - totalDamage);
+          remainingDamage = 0;
         }
+  
+        const updatedHealth = Math.max(0, Math.floor(enemyElem.Health - remainingDamage));
   
         setter((prev) => ({
           ...prev,
           Health: updatedHealth,
+          Shield_hp: updatedShield,
         }));
       });
   
-      // Cleanup after attacking multiple enemies
+      // Cleanup for multi-target attacks
       setSelectedEnemies([]);
       cooldown(cooldownTime, setCooldown);
       setMana((prev) => prev - cost);
-    } else if (enemyElem) {
-      // Single target attack
-      const random = Math.floor(Math.random() * 100) + 1;
-      let updatedHealth;
+    };
   
-      if (random <= critRate) {
-        updatedHealth = Math.floor(
-          enemyElem.Health - (damage * critDmg * enemyElem.Defense)
-        );
+    const handleSingleTargetAttack = () => {
+      const random = Math.floor(Math.random() * 100) + 1;
+      const critMultiplier = random <= critRate ? critDmg : 1;
+      const totalDamage = damage * critMultiplier * enemyElem.Defense;
+  
+      let remainingDamage = totalDamage;
+      let updatedShield = targetShield - totalDamage;
+  
+      if (updatedShield < 0) {
+        remainingDamage = Math.abs(updatedShield);
+        updatedShield = 0;
       } else {
-        updatedHealth = Math.floor(
-          enemyElem.Health - (damage * enemyElem.Defense)
-        );
+        remainingDamage = 0;
       }
   
+      const updatedHealth = Math.max(0, Math.floor(enemyElem.Health - remainingDamage));
+  
+      // Apply initial damage to target health and shield
       targetHealth((prev) => ({
         ...prev,
+        Shield_hp: updatedShield,
         Health: updatedHealth,
       }));
   
+      setTargetShield(updatedShield);
+  
+      // Aftershock logic here - trigger after attack
+      if (Element === electricity) {
+        setTimeout(() => {
+          const randomEct = Math.floor(Math.random() * 100) + 1;
+          if(randomEct < 20){
+          // Apply the Aftershock damage after the initial attack
+          const aftershockUpdatedHealth = Math.max(0, Math.floor(updatedHealth - 20));
+          targetHealth((prev) => ({
+            ...prev,
+            Health: aftershockUpdatedHealth,
+          }));
+        }
+        }, 750); 
+      }
+  
+      // Cleanup for single-target attacks
       setClickedEnemy(null);
       setEnemyElem(null);
       cooldown(cooldownTime, setCooldown);
       setMana((prev) => prev - cost);
   
-      // Cleanup fire ultimate
+      // Reset fire ultimate if crit rate is maxed
       if (critRate >= 100) {
         setCritRate(Element.Attacks.crit_rate);
         setCritDmg(Element.Attacks.crit_dmg);
       }
+    };
+  
+    // Determine if multi-target or single-target attack
+    if (isAir && selectedEnemies.length > 0) {
+      handleMultiTargetAttack();
+    } else if (enemyElem) {
+      handleSingleTargetAttack();
     }
   };
   
@@ -277,7 +324,7 @@ function Inventory({ Element }) {
   
   return (
       <>
-        <HealthBar currentHealth={currentHealth} maxHealth={Element.Health} classNameSet={"personal-bar"} />
+        <HealthBar currentHealth={currentHealth} maxHealth={Element.Health} classNameSet={shieldHp > 0 ? "personal-bar shield" : "personal-bar"} />
         <div className="inventory-bar">
           <div className="inventory-btn">
             <div className="info">
@@ -293,7 +340,10 @@ function Inventory({ Element }) {
             </button>
             <button
               className="inventory-attack-btn"
-              onClick={() => attack(Element.Attacks.Primary.dmg, Element.Attacks.Primary.cost, Element.Attacks.Primary.CD, setPrimaryCooldown)}
+              onClick={() => {
+                const cooldown = electricityUltActive ? 1 : Element.Attacks.Primary.CD;
+                attack(Element.Attacks.Primary.dmg, Element.Attacks.Primary.cost,  cooldown, setPrimaryCooldown)
+              }}
               disabled={primaryCooldown > 0}
             >
               <div className="attack-name">{Element.Attacks.Primary.name}</div>
@@ -304,7 +354,10 @@ function Inventory({ Element }) {
             </button>
             <button
               className="inventory-attack-btn"
-              onClick={() => attack(Element.Attacks.Secondary.dmg, Element.Attacks.Secondary.cost, Element.Attacks.Secondary.CD, setSecondaryCooldown) }
+              onClick={() => {
+                const cooldown = electricityUltActive ? 1 : Element.Attacks.Secondary.CD;
+                attack(Element.Attacks.Secondary.dmg, Element.Attacks.Secondary.cost, cooldown, setSecondaryCooldown) 
+              }}
               disabled={secondaryCooldown > 0}
             >
               <div className="attack-name">{Element.Attacks.Secondary.name}</div>
@@ -315,7 +368,10 @@ function Inventory({ Element }) {
             </button>
             <button
               className="inventory-attack-btn"
-              onClick={() => attack(Element.Attacks.Special.dmg, Element.Attacks.Special.cost, Element.Attacks.Special.CD, setSpecialCooldown)}
+              onClick={() => {
+                const cooldown = electricityUltActive ? 1 : Element.Attacks.Special.CD;
+                attack(Element.Attacks.Special.dmg, Element.Attacks.Special.cost, cooldown, setSpecialCooldown)
+              }}
               disabled={specialCooldown > 0}
             >
               <div className="attack-name">{Element.Attacks.Special.name}</div>

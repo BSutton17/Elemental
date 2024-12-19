@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <GameScreen />
-      <Inventory Element={air} />
+      <Inventory Element={electricity} />
     </>
   )
 }

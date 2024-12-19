@@ -4,7 +4,7 @@
         "KeyPoints": {
             "description": "Water is the element of self preservation, they focus less on offense and more on staying alive and keeping attackers off their backs"
         },
-        "Shield-hp": 0,
+        "Shield_hp": 0,
         "Citizens": 20,
         "Defense": 1,
         "Passives": [
@@ -63,7 +63,7 @@
         "KeyPoints": {
             "description": "Fire is the most aggressive and offensive element, defense is secondary to them and they focus on taking down opponents as quickly as possible"
         },
-        "Shield-hp": 0,
+        "Shield_hp": 0,
         "Citizens": 10,
         "Defense": 1,
         "Passives": [
@@ -121,7 +121,7 @@
         "KeyPoints": {
             "description": "Air is an element of crowd control. They focus on keeping every element on the board in an uncomfortable position at the same time they are the only element that can attack multiple elements and apply pressure consistently. Long game is their friend"
         },
-        "Shield-hp": 0,
+        "Shield_hp": 0,
         "Citizens": 10,
         "Defense": 1,
         "Passives": [
@@ -179,7 +179,7 @@
         "KeyPoints": {
             "description": "Earth is the most defensive element in the game, having the ability to boast the most powerful shield they are able to tank the majority of hits which can also make them a target, they focus on steady control and let the other elements take each other out while applying chip damage here and there"
         },
-        "Shield-hp": 200,
+        "Shield_hp": 200,
         "Citizens": 10,
         "Defense": 1,
         "Passives": [
@@ -226,7 +226,7 @@
         },
         "Ultimate": {
             "name": "Brick Wall",
-            "effect": "Creates a 2,000hp shield",
+            "effect": "Creates a 1,000hp shield",
             "cost": 1000
         }
     },
@@ -235,7 +235,7 @@
         "KeyPoints": {
             "description": "Electricity is the element of speed. They focus on quick attacks and pestering their opponent as well as chaining together attacks"
         },
-        "Shield-hp": 0,
+        "Shield_hp": 0,
         "Citizens": 10,
         "Defense": 1,
         "Passives": [
@@ -245,7 +245,7 @@
             },
             {
                 "name": "AfterShock",
-                "effect": "All attacks have a small chance to deal extra damage after the attack"
+                "effect": "All attacks have a small chance to deal extra damage after the attack that ignore shields"
             }
         ],
         "Attacks": {
@@ -256,21 +256,21 @@
                 "type": "Basic Electricity attack",
                 "dmg": 80,
                 "cost": 100,
-                "CD": 6 
+                "CD": 5
             },
             "Secondary": {
                 "name": "Lightning barrage",
                 "type": "A powerful electricity attack",
                 "dmg": 200,
                 "cost": 300,
-                "CD": 9 
+                "CD": 7
             },
             "Special": {
                 "name": "Hack",
                 "type": "Deal low damage while also stealing a small percentage of another kingdoms money and Citizens",
                 "dmg": 150,
                 "cost": 500,
-                "CD": 13 
+                "CD": 9
             }
         },
         "Utility": {
@@ -278,12 +278,13 @@
             "effect": "Create a mild shield",
             "cost": 450,
             "dmg": 0,
-            "CD": 10
+            "CD": 8
         },
         "Ultimate": {
             "name": "Thundering Fate",
-            "effect": "Remove CD on all attacks for 10 seconds",
-            "cost": 1000
+            "effect": "Temporarily Reduces CD on all attacks to 1 second",
+            "cost": 1000,
+            "CD" : 23
         }
     },
     "Ice": {
@@ -291,7 +292,7 @@
         "KeyPoints": {
             "description": "Ice is the element of control and defense, focusing on slowing down enemies and protecting allies. They prioritize freezing and immobilizing their opponents."
         },
-        "Shield-hp": 0,
+        "Shield_hp": 0,
         "Citizens": 10,
         "Defense": 1,
         "Passives": [
@@ -349,7 +350,7 @@
         "KeyPoints": {
                 "description": "Nature is the element of adaptability and toxins, focusing on environmental manipulation, poison, and creating adverse conditions for opponents."
             },
-            "Shield-hp": 0,
+            "Shield_hp": 0,
             "Citizens": 15,
             "Defense": 1,
             "Passives": [

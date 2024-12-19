@@ -18,6 +18,7 @@ function GameScreen() {
         birdsEye,
         isAir, setIsAir,
         selectedEnemies, setSelectedEnemies,
+        targetShield, setTargetShield,
   } = useGameContext();
 
   // Handle clicking on the enemy element and toggle it in the selection
@@ -34,7 +35,7 @@ function GameScreen() {
   };
 
   // Handle clicking on the enemy element and store its health in clicked state
-  const handleClick = (elem, setter, enemy) => {
+  const handleClick = (elem, setter, enemy, shiled) => {
     if(isAir){
       multiClick(elem, setter)
     }
@@ -42,6 +43,7 @@ function GameScreen() {
       setEnemyElem(elem); 
       setTargetHealth(() => setter); 
       setClickedEnemy(enemy); 
+      setTargetShield(shiled)
     }
     
   };
@@ -53,7 +55,7 @@ function GameScreen() {
         <div className='birds'>
           <div
             className={isAir ? selectedEnemies.find((e) => e.enemy === nature) ? 'blue-border enemy' : 'enemy' : clickedEnemy === 'nature' ? 'red-border enemy' : 'enemy'} 
-            onClick={() => handleClick(nature, setNature, "nature")}
+            onClick={() => handleClick(nature, setNature, "nature", nature.Shield_hp)}
           >
             <h3>Nature Health: {nature.Health}</h3>
           </div>
@@ -68,7 +70,7 @@ function GameScreen() {
         <div className='birds'>
           <div
             className={isAir ? selectedEnemies.find((e) => e.enemy === electricity) ? 'blue-border enemy' : 'enemy' :clickedEnemy === 'electricity' ? 'red-border enemy' : 'enemy'}
-            onClick={() => handleClick(electricity, setElectricity, "electricity")}
+            onClick={() => handleClick(electricity, setElectricity, "electricity", electricity.Shield_hp)}
           >
             <h3>Electricity Health: {electricity.Health}</h3>
           </div>

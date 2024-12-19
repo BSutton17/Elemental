@@ -2,7 +2,6 @@ import React from 'react';
 
 const HealthBar = ({ currentHealth, maxHealth, classNameSet }) => {
   const healthPercentage = (currentHealth / maxHealth) * 100;
-  console.log(healthPercentage)
 
   return (
     <>
