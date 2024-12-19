@@ -1,0 +1,81 @@
+/* Game Screen */
+.enemy {
+    width: 15vh;
+    height: 15vh;
+    text-align: center;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    margin: 2.5vh;
+    border: 1px solid black;
+  }
+  
+  .red-border{
+    border: 1px solid red;
+  }
+
+  .enemies {
+    display: flex; 
+    
+  }
+  
+  .enemy:hover {
+    cursor: pointer;
+  }
+  
+  
+  /* Inventory */
+  .inventory-bar {
+    width: 100vw;
+    height: 25vh;
+    border-top: 1px solid black;
+    position: fixed;
+    display: inline;
+    bottom: 0;
+    left: 0;
+    overflow-y: hidden;
+  }
+
+  .info{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    width: 20vh;
+    margin-left: -3vh;
+    margin-right: 3vh;
+  }
+
+  .info:nth-child(1){
+    margin-bottom: -5vh;
+  }
+
+  .inventory-btn {
+    width: 100vw;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .inventory-attack-btn {
+    height: 20vh;
+    width: 20vh;
+    margin: 2.5vh;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+  }
+  .attack-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .attack-cost {
+    font-size: 14px;
+    margin-top: 5px; 
+  }
+  
+  
