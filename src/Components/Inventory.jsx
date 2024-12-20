@@ -95,7 +95,7 @@ function Inventory({ Element }) {
             },[8000])
             break;
         case ice:
-            
+          setShieldHp(150)
             break;
         case electricity:
             setShieldHp(150)
@@ -291,6 +291,57 @@ function Inventory({ Element }) {
         }
         }, 750); 
       }
+
+      //Nature's attacks
+       // Specific implementation for Nature attacks
+  if (Element === nature) {
+    if (damage == Element.Attacks.Secondary.dmg) {
+      console.log("reached: ")
+      // Poison damage over time for Acid Rain
+      const poisonInterval = setInterval(() => {
+        const poisonDamage = Element.Attacks.Secondary.poison_dmg
+        targetHealth((prev) => ({
+          ...prev,
+          Health: Math.max(0, prev.Health - poisonDamage),
+        }));
+      }, 900);
+
+      // Clear poison effect after a certain period (e.g., 5 seconds)
+      setTimeout(() => {
+        clearInterval(poisonInterval);
+      }, 4500);
+
+    } else if (damage == Element.Attacks.Special.dmg) {
+      // Gastro Acid attack with defense reduction and poison damage
+      const updatedHealth = Math.max(0, Math.floor(enemyElem.Health - damage));
+      const updatedDefense = Math.max(0, enemyElem.Defense - 0.1); 
+
+      const poisonInterval = setInterval(() => {
+        const poisonDamage = Element.Attacks.Special.poison_dmg
+        targetHealth((prev) => ({
+          ...prev,
+          Health: Math.max(0, prev.Health - poisonDamage),
+        }));
+      }, 900);
+      setTimeout(() => {
+        clearInterval(poisonInterval);
+      }, 4500);
+
+      targetHealth((prev) => ({
+        ...prev,
+        Defense: updatedDefense,
+        Health: updatedHealth,
+      }));
+
+      setTimeout(() => {
+        // Restore defense after 5 seconds
+        targetHealth((prev) => ({
+          ...prev,
+          Defense: 1,
+        }));
+      }, 5000);
+    }
+  }
   
       // Cleanup for single-target attacks
       setClickedEnemy(null);

@@ -355,8 +355,8 @@
             "Defense": 1,
             "Passives": [
                 {
-                    "name": "Rooted in the Earth",
-                    "effect": "Nature heals for 5% of their health every 5 seconds in a natural environment."
+                    "name": "No rose without thorns",
+                    "effect": "Attackers have a small chance to take damage when attacking nature."
                 },
                 {
                     "name": "Verdant Shield",
@@ -376,7 +376,8 @@
                 "Secondary": {
                     "name": "Acid Rain",
                     "type": "Powerful acid attack that deals damage over time",
-                    "poison-dmg": 20,
+                    "dmg": 100,
+                    "poison_dmg": 15,
                     "cost": 300,
                     "CD": 9 
                 },
@@ -384,7 +385,7 @@
                     "name": "Gastro Acid",
                     "type": "Attack that poisons enemies and reduces their defense for 5 seconds",
                     "dmg": 200,
-                    "poison-dmg": 15,
+                    "poison_dmg": 20,
                     "cost": 500,
                     "CD": 13 
                 }
@@ -392,7 +393,7 @@
             "Utility": {
                 "name": "Poison Apple",
                 "effect": "Next enemny to attack Nature takes poison damage for 5 seconds.",
-                "poison-dmg": 20,
+                "poison_dmg": 20,
                 "cost": 450 
             },
             "Ultimate": {
@@ -401,7 +402,7 @@
                 "cost": 1000,
                 "dmg": 0,
                 "CD": 30,
-                "poison-dmg": 20
+                "poison_dmg": 20
             }
         }
     }
